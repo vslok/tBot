@@ -46,7 +46,10 @@ def data_question(qlist):
 
 
 def data_load(json_file):
-    data = json.load(open(json_file))
+    try:
+        data = json.load(open(json_file))
+    except:
+        data = []
     return data
 
 
@@ -64,13 +67,9 @@ def user(user_id, questions_list, count):
 
 
 def json_users_file_update(user, json_file='users.json'):
-    try:
-        users = json.load(open(json_file))
-    except:
-        users = []
-        users.append(user)
+    uData.append(user)
     with open(json_file, 'w', encoding='utf-8') as f:
-        json.dump(users, f, indent=2, ensure_ascii=False)
+        json.dump(uData, f, indent=2, ensure_ascii=False)
 
 
 def json_quiz_file(text_path, json_file='quiz.json'):
@@ -86,7 +85,7 @@ def json_quiz_file(text_path, json_file='quiz.json'):
 
 def user_checker(user_id):
     count = 0
-    for i in uData:
+    for i in range(len(uData)):
         if uData[i]['id'] == user_id:
             count = uData[i]['true_answers']
             questions = uData[i]['questions']
