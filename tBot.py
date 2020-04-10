@@ -137,8 +137,11 @@ def start_message(message):
     bot.send_message(message.chat.id, 'Привет!')
 
 
+Flag = False
 @bot.message_handler(commands=['quizPls'])
 def quiz(message):
+    global Flag
+    Flag = True
     user_id = message.from_user.id
     user_questions = user_checker(user_id)
     if len(user_questions) > 10:
@@ -153,23 +156,26 @@ def quiz(message):
 
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def check_answer(message):
-    user_id = message.from_user.id
-    keyboard_hider = telebot.types.ReplyKeyboardRemove()
-    answer = current_players[user_id][0]
-    text = message.text
-    if text == answer:
-        current_players[user_id][1] += 1
-        bot.send_message(message.chat.id, 'Верно!',
-                         reply_markup=keyboard_hider)
-    else:
-        bot.send_message(
-            message.chat.id, 'Правильный ответ: {}'.format(answer),
-            reply_markup=keyboard_hider)
-    if current_players[user_id][2]!=[]:
-        game(user_id)
-    else:
-        json_users_file_update(user(user_id, current_players[user_id][3],
-                    current_players[user_id][1]))
+    global Flag
+    if Flag:
+        user_id = message.from_user.id
+        keyboard_hider = telebot.types.ReplyKeyboardRemove()
+        answer = current_players[user_id][0]
+        text = message.text
+        if text == answer:
+            current_players[user_id][1] += 1
+            bot.send_message(message.chat.id, 'Верно!',
+                            reply_markup=keyboard_hider)
+        else:
+            bot.send_message(
+                message.chat.id, 'Правильный ответ: {}'.format(answer),
+                reply_markup=keyboard_hider)
+        if current_players[user_id][2]!=[]:
+            game(user_id)
+        else:
+            json_users_file_update(user(user_id, current_players[user_id][3],
+                        current_players[user_id][1]))
+            Flag = False
 
 
 bot.polling()
