@@ -122,9 +122,15 @@ def current_answer(id):
     return bullshit
 
 
-def game(question, answers, user_id):
+def question_generation(question, answers, user_id, pull, user_questions, current_question_id):
+    current_players.update(
+    {user_id: [current_answer(current_question_id), current_players[user_id][1], pull, user_questions]})
     markup = generate_markup(answers)
     bot.send_message(user_id, question, reply_markup=markup)
+
+def game(user_id):
+    i = current_players[user_id][2].pop()
+    question_generation(qData[i]['text_name'], qData[i]['answers'], user_id, current_players[user_id][2],current_players[user_id][3], i)
 
 
 @bot.message_handler(commands=['start'])
@@ -136,16 +142,14 @@ def start_message(message):
 def quiz(message):
     user_id = message.from_user.id
     user_questions = user_checker(user_id)
-    if len(user_questions) > 9:
+    if len(user_questions) > 10:
         pull = pull_of_questions(user_questions)
     else:
         pull, user_questions = user_questions, []
-    for i in pull:
-        current_players.update(
-            {user_id: [current_answer(i), current_players[user_id][1]]})
-        game(qData[i]['text_name'], qData[i]['answers'], user_id)
-        json_users_file_update(user(user_id, user_questions,
-                               current_players[user_id][1]))
+    current_players.update(
+         {user_id: ["", current_players[user_id][1], pull, user_questions]})
+    game(user_id)
+
 
 
 @bot.message_handler(func=lambda message: True, content_types=['text'])
@@ -162,6 +166,11 @@ def check_answer(message):
         bot.send_message(
             message.chat.id, 'Правильный ответ: {}'.format(answer),
             reply_markup=keyboard_hider)
+    if current_players[user_id][2]!=[]:
+        game(user_id)
+    else:
+        json_users_file_update(user(user_id, current_players[user_id][3],
+                    current_players[user_id][1]))
 
 
 bot.polling()
