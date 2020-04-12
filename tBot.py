@@ -65,6 +65,9 @@ def user(user_id, questions_list, count):
     }
     return data
 
+# def json_stat_file_update(json_file ='stat.json'):
+#     with open(json_file, 'w', encoding='utf-8') as f:
+#         json.dump
 
 def json_users_file_update(user, json_file='users.json'):
     uData.append(user)
@@ -84,7 +87,6 @@ def json_quiz_file(text_path, json_file='quiz.json'):
 
 
 def user_checker(user_id):
-    count = 0
     for i in range(len(uData)):
         if uData[i]['id'] == user_id:
             count = uData[i]['true_answers']
@@ -92,9 +94,8 @@ def user_checker(user_id):
             uData.pop(i)
             current_players.update({user_id: ['', count]})
             return questions
-
     questions = [i for i in range(len(qData))]
-    current_players.update({user_id: ['', count]})
+    current_players.update({user_id: ['', 0]})
     return questions
 
 
@@ -108,8 +109,8 @@ def pull_of_questions(questions):
 def generate_markup(answers):
     markup = telebot.types.ReplyKeyboardMarkup(
         one_time_keyboard=True, resize_keyboard=True)
-    for item in answers:
-        markup.add(item)
+    for item in range(len(answers)):
+        markup.add(str(item+1))
     return markup
 
 
@@ -117,15 +118,20 @@ current_players = {}
 
 
 def current_answer(id):
-    bullshit = qData[id]['answers'][int(qData[id]['right_answer'])-1]
+    bullshit = qData[id]['right_answer']
     return bullshit
 
+def question_gen(question, answers):
+    mes = question+'\n'
+    for i in range(len(answers)):
+        mes+= '\n {}. '.format(i+1) + answers[i]
+    return mes
 
 def question_generation(question, answers, user_id, pull, user_questions, current_question_id):
     current_players.update(
     {user_id: [current_answer(current_question_id), current_players[user_id][1], pull, user_questions]})
     markup = generate_markup(answers)
-    bot.send_message(user_id, question, reply_markup=markup)
+    bot.send_message(user_id, question_gen(question, answers), reply_markup=markup)
 
 def game(user_id):
     i = current_players[user_id][2].pop()
@@ -142,6 +148,7 @@ Flag = False
 def quiz(message):
     global Flag
     Flag = True
+    sesionTime = time.time()
     user_id = message.from_user.id
     user_questions = user_checker(user_id)
     if len(user_questions) > 10:
@@ -149,7 +156,7 @@ def quiz(message):
     else:
         pull, user_questions = user_questions, []
     current_players.update(
-         {user_id: ["", current_players[user_id][1], pull, user_questions]})
+         {user_id: ["", current_players[user_id][1], pull, user_questions, sesionTime]})
     game(user_id)
 
 
@@ -170,9 +177,18 @@ def check_answer(message):
             bot.send_message(
                 message.chat.id, 'Правильный ответ: {}'.format(answer),
                 reply_markup=keyboard_hider)
-        if current_players[user_id][2]!=[]:
+        if current_players[user_id][2]!=[] or time.time()-current_players[user_id][4]<10.0:
             game(user_id)
+        elif time.time()-current_players[user_id][4]>10.0:
+            bot.send_message(
+                message.chat.id, 'Правильных ответов: {}'.format(current_players[user_id][1])
+                    +'\n'+'Вышло время сессии')
+            json_users_file_update(user(user_id, current_players[user_id][3],
+                        current_players[user_id][1]))
+            Flag = False
         else:
+            bot.send_message(
+                message.chat.id, 'Правильных ответов: {}'.format(current_players[user_id][1]))
             json_users_file_update(user(user_id, current_players[user_id][3],
                         current_players[user_id][1]))
             Flag = False
