@@ -129,7 +129,7 @@ def question_gen(question, answers):
 
 def question_generation(question, answers, user_id, pull, user_questions, current_question_id):
     current_players.update(
-    {user_id: [current_answer(current_question_id), current_players[user_id][1], pull, user_questions]})
+    {user_id: [current_answer(current_question_id), current_players[user_id][1], pull, user_questions, current_players[user_id][4]]})
     markup = generate_markup(answers)
     bot.send_message(user_id, question_gen(question, answers), reply_markup=markup)
 
@@ -148,7 +148,7 @@ Flag = False
 def quiz(message):
     global Flag
     Flag = True
-    sesionTime = time.time()
+    sTime = time.monotonic()
     user_id = message.from_user.id
     user_questions = user_checker(user_id)
     if len(user_questions) > 10:
@@ -156,7 +156,7 @@ def quiz(message):
     else:
         pull, user_questions = user_questions, []
     current_players.update(
-         {user_id: ["", current_players[user_id][1], pull, user_questions, sesionTime]})
+         {user_id: ["", current_players[user_id][1], pull, user_questions, sTime]})
     game(user_id)
 
 
@@ -177,9 +177,9 @@ def check_answer(message):
             bot.send_message(
                 message.chat.id, 'Правильный ответ: {}'.format(answer),
                 reply_markup=keyboard_hider)
-        if current_players[user_id][2]!=[] or time.time()-current_players[user_id][4]<10.0:
+        if current_players[user_id][2]!=[] and (time.monotonic()-current_players[user_id][4])<720.0:
             game(user_id)
-        elif time.time()-current_players[user_id][4]>10.0:
+        elif (time.monotonic()-current_players[user_id][4])>720.0:
             bot.send_message(
                 message.chat.id, 'Правильных ответов: {}'.format(current_players[user_id][1])
                     +'\n'+'Вышло время сессии')
