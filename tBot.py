@@ -74,6 +74,15 @@ def json_users_file_update(user, json_file='users.json'):
     with open(json_file, 'w', encoding='utf-8') as f:
         json.dump(uData, f, indent=2, ensure_ascii=False)
 
+def questions_file_update(json_file='quiz.json'):
+    for key in questons_session_stat.keys():
+        if questons_session_stat[key] == True:
+            qData[key]["true"] +=1
+        else:
+            qData[key]["false"] +=1
+    with open(json_file, 'w', encoding='utf-8') as f:
+        json.dump(qData, f, indent=2, ensure_ascii=False)
+
 
 def json_quiz_file(text_path, json_file='quiz.json'):
     File = data_question(questions_list(get_text(text_path)))
@@ -102,7 +111,7 @@ def user_checker(user_id):
 def pull_of_questions(questions):
     pull = []
     for i in range(10):
-        pull.append(questions.pop(randint(0, len(questions))))
+        pull.append(questions.pop(randint(0, len(questions)-1)))
     return pull
 
 
@@ -121,6 +130,8 @@ def current_answer(id):
     bullshit = qData[id]['right_answer']
     return bullshit
 
+questons_session_stat = {}
+
 def question_gen(question, answers):
     mes = question+'\n'
     for i in range(len(answers)):
@@ -129,7 +140,7 @@ def question_gen(question, answers):
 
 def question_generation(question, answers, user_id, pull, user_questions, current_question_id):
     current_players.update(
-    {user_id: [current_answer(current_question_id), current_players[user_id][1], pull, user_questions, current_players[user_id][4]]})
+    {user_id: [current_answer(current_question_id), current_players[user_id][1], pull, user_questions, current_players[user_id][4],current_question_id]})
     markup = generate_markup(answers)
     bot.send_message(user_id, question_gen(question, answers), reply_markup=markup)
 
@@ -154,9 +165,9 @@ def quiz(message):
     if len(user_questions) > 10:
         pull = pull_of_questions(user_questions)
     else:
-        pull, user_questions = user_questions, []
+        pull, user_questions = user_questions, [i for i in range(len(qData))]
     current_players.update(
-         {user_id: ["", current_players[user_id][1], pull, user_questions, sTime]})
+        {user_id: ["", current_players[user_id][1], pull, user_questions, sTime, 0]})
     game(user_id)
 
 
@@ -173,24 +184,28 @@ def check_answer(message):
             current_players[user_id][1] += 1
             bot.send_message(message.chat.id, 'Верно!',
                             reply_markup=keyboard_hider)
+            questons_session_stat[current_players[user_id][5]] = True
         else:
             bot.send_message(
                 message.chat.id, 'Правильный ответ: {}'.format(answer),
                 reply_markup=keyboard_hider)
+            questons_session_stat[current_players[user_id][5]] = False
         if current_players[user_id][2]!=[] and (time.monotonic()-current_players[user_id][4])<720.0:
             game(user_id)
         elif (time.monotonic()-current_players[user_id][4])>720.0:
             bot.send_message(
-                message.chat.id, 'Правильных ответов: {}'.format(current_players[user_id][1])
+                message.chat.id, 'Всего правильных ответов: {}'.format(current_players[user_id][1])
                     +'\n'+'Вышло время сессии')
             json_users_file_update(user(user_id, current_players[user_id][3],
                         current_players[user_id][1]))
+            questions_file_update()
             Flag = False
         else:
             bot.send_message(
-                message.chat.id, 'Правильных ответов: {}'.format(current_players[user_id][1]))
+                message.chat.id, 'Всего правильных ответов: {}'.format(current_players[user_id][1]))
             json_users_file_update(user(user_id, current_players[user_id][3],
                         current_players[user_id][1]))
+            questions_file_update()
             Flag = False
 
 

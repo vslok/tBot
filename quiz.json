@@ -10,7 +10,7 @@
     ],
     "right_answer": "3",
     "true": 0,
-    "false": 0
+    "false": 2
   },
   {
     "id": 1,
@@ -23,7 +23,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 6
   },
   {
     "id": 2,
@@ -35,7 +35,7 @@
       "Значение"
     ],
     "right_answer": "1",
-    "true": 0,
+    "true": 4,
     "false": 0
   },
   {
@@ -49,7 +49,7 @@
     ],
     "right_answer": "2",
     "true": 0,
-    "false": 0
+    "false": 4
   },
   {
     "id": 4,
@@ -62,7 +62,7 @@
     ],
     "right_answer": "2",
     "true": 0,
-    "false": 0
+    "false": 4
   },
   {
     "id": 5,
@@ -75,7 +75,7 @@
     ],
     "right_answer": "2",
     "true": 0,
-    "false": 0
+    "false": 4
   },
   {
     "id": 6,
@@ -88,7 +88,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 6
   },
   {
     "id": 7,
@@ -101,7 +101,7 @@
     ],
     "right_answer": "3",
     "true": 0,
-    "false": 0
+    "false": 3
   },
   {
     "id": 8,
@@ -114,7 +114,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 2
   },
   {
     "id": 9,
@@ -126,7 +126,7 @@
       "Для выполнения указанного набора инструкций заданное количество раз, которое определяется количеством элементов в наборе"
     ],
     "right_answer": "1",
-    "true": 0,
+    "true": 4,
     "false": 0
   },
   {
@@ -140,7 +140,7 @@
     ],
     "right_answer": "2",
     "true": 0,
-    "false": 0
+    "false": 4
   },
   {
     "id": 11,
@@ -153,7 +153,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 3
   },
   {
     "id": 12,
@@ -166,7 +166,7 @@
     ],
     "right_answer": "3",
     "true": 0,
-    "false": 0
+    "false": 4
   },
   {
     "id": 13,
@@ -179,7 +179,7 @@
     ],
     "right_answer": "2",
     "true": 0,
-    "false": 0
+    "false": 3
   },
   {
     "id": 14,
@@ -192,7 +192,7 @@
     ],
     "right_answer": "3",
     "true": 0,
-    "false": 0
+    "false": 5
   },
   {
     "id": 15,
@@ -205,7 +205,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 5
   },
   {
     "id": 16,
@@ -218,7 +218,7 @@
     ],
     "right_answer": "2",
     "true": 0,
-    "false": 0
+    "false": 6
   },
   {
     "id": 17,
@@ -230,7 +230,7 @@
       "Появляется в случае, если в коде встречаются неправильные отступы"
     ],
     "right_answer": "1",
-    "true": 0,
+    "true": 2,
     "false": 0
   },
   {
@@ -243,7 +243,7 @@
       "Гипотеза Ландера — Паркина — Селфриджа"
     ],
     "right_answer": "1",
-    "true": 0,
+    "true": 5,
     "false": 0
   },
   {
@@ -257,7 +257,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 5
   },
   {
     "id": 20,
@@ -270,7 +270,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 4
   },
   {
     "id": 21,
@@ -283,7 +283,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 4
   },
   {
     "id": 22,
@@ -296,7 +296,7 @@
     ],
     "right_answer": "2",
     "true": 0,
-    "false": 0
+    "false": 2
   },
   {
     "id": 23,
@@ -308,7 +308,7 @@
       "Любое количество"
     ],
     "right_answer": "1",
-    "true": 0,
+    "true": 4,
     "false": 0
   },
   {
@@ -322,7 +322,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 6
   },
   {
     "id": 25,
@@ -335,7 +335,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 5
   },
   {
     "id": 26,
@@ -348,7 +348,7 @@
     ],
     "right_answer": "2",
     "true": 0,
-    "false": 0
+    "false": 4
   },
   {
     "id": 27,
@@ -361,7 +361,7 @@
     ],
     "right_answer": "3",
     "true": 0,
-    "false": 0
+    "false": 3
   },
   {
     "id": 28,
@@ -374,7 +374,7 @@
     ],
     "right_answer": "2",
     "true": 0,
-    "false": 0
+    "false": 3
   },
   {
     "id": 29,
@@ -386,7 +386,7 @@
       "Суммирует элементы указанного объекта и возвращает результат"
     ],
     "right_answer": "1",
-    "true": 0,
+    "true": 3,
     "false": 0
   },
   {
@@ -400,7 +400,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 2
   },
   {
     "id": 31,
@@ -413,7 +413,7 @@
     ],
     "right_answer": "2",
     "true": 0,
-    "false": 0
+    "false": 3
   },
   {
     "id": 32,
@@ -426,7 +426,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 3
   },
   {
     "id": 33,
@@ -439,7 +439,7 @@
     ],
     "right_answer": "3",
     "true": 0,
-    "false": 0
+    "false": 4
   },
   {
     "id": 34,
@@ -451,7 +451,7 @@
       "Метод Сальери"
     ],
     "right_answer": "1",
-    "true": 0,
+    "true": 5,
     "false": 0
   },
   {
@@ -465,7 +465,7 @@
     ],
     "right_answer": "3",
     "true": 0,
-    "false": 0
+    "false": 3
   },
   {
     "id": 36,
@@ -478,7 +478,7 @@
     ],
     "right_answer": "2",
     "true": 0,
-    "false": 0
+    "false": 5
   },
   {
     "id": 37,
@@ -491,7 +491,7 @@
     ],
     "right_answer": "3",
     "true": 0,
-    "false": 0
+    "false": 5
   },
   {
     "id": 38,
@@ -503,7 +503,7 @@
       "Каждое число является кубом предыдущего"
     ],
     "right_answer": "1",
-    "true": 0,
+    "true": 6,
     "false": 0
   },
   {
@@ -517,7 +517,7 @@
     ],
     "right_answer": "3",
     "true": 0,
-    "false": 0
+    "false": 4
   },
   {
     "id": 40,
@@ -530,7 +530,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 4
   },
   {
     "id": 41,
@@ -543,7 +543,7 @@
     ],
     "right_answer": "4",
     "true": 0,
-    "false": 0
+    "false": 2
   },
   {
     "id": 42,
@@ -555,7 +555,7 @@
       "Создаёт функцию, принимающую аргумент x и возвращающую f(x) + n"
     ],
     "right_answer": "1",
-    "true": 0,
+    "true": 6,
     "false": 0
   },
   {
@@ -569,7 +569,7 @@
     ],
     "right_answer": "3",
     "true": 0,
-    "false": 0
+    "false": 3
   },
   {
     "id": 44,
@@ -581,7 +581,7 @@
       "Создаёт функцию, принимающую аргумент x и возвращающую f(x) + n"
     ],
     "right_answer": "1",
-    "true": 0,
+    "true": 4,
     "false": 0
   }
 ]
